@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise 2</title>
+  <link href="/src/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/src/assets/css/fontawesome/css/all.css" rel="stylesheet">
+  <link href="/src/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <main role="main">
+    <div class="container pt-5 pb-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="container">
+            <div id="appData">
+              <ul id="tabs" class="nav nav-tabs">
+                <li v-for="(panel, index) in panels" v-bind:class="{ 'active' : index === 0}">
+                  <a data-toggle="tab" v-bind:href="`#t${index}`">{{ panel.title }}</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div v-for="(panel, index) in panels" v-bind:class="{ 'in active' : index === 0}"
+                  v-bind:id="`t${index}`" class="tab-pane fade">
+                  <div v-html="panel.content"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/darkly/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="module" src="/src/main.js"></script>
+  <script type="text/javascript" src="/src/assets/js/style.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      getAccordion("#tabs", 768);
+    });
+  </script>
+  <script type="module">
+    import jsonData from '/data.json';
+    export default {
+      data() {
+        return {
+          jsonData: jsonData
+        }
+      }
+    }
+
+    new Vue({
+      el: '#appData',
+      data: {
+        panels: jsonData
+      }
+    })
+  </script>
+</body>
+
+</html>
